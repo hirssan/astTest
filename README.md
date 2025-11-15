@@ -117,12 +117,16 @@ for (const model of result.models) {
 
 ```bash
 npm test
+# もしくは Bun を利用している場合は
+bun run test
 ```
 
-Biome による静的解析とフォーマットチェックは以下で実行できます。オプションを追加したい場合は `npm run lint -- --apply` のように末尾へ渡してください。
+Biome による静的解析とフォーマットチェックは以下で実行できます。オプションを追加したい場合は `npm run lint -- --apply` や `bun run lint -- --apply` のように末尾へ渡してください。
 
 ```bash
 npm run lint
+# もしくは
+bun run lint
 ```
 
 ### Lefthook による自動フォーマット
@@ -137,7 +141,7 @@ npx lefthook install
 
 TypeScript で実装されたソースは `npm run build` で `dist/` 以下にコンパイルされ、Ruby フォールバックスクリプトも合わせてコピーされます。パッケージ公開前や手元で CLI を試す際はビルドを実行してください。
 
-GitHub Actions (`.github/workflows/ci.yml`) では `npm run lint` と `npm test` を実行し、Pull Request や push 時に自動で検証します。
+GitHub Actions (`.github/workflows/ci.yml`) では Bun 上で `bun run lint` と `bun run test` を実行し、Pull Request や push 時に自動で検証します。
 
 ## トラブルシューティング
 

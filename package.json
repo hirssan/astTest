@@ -10,11 +10,10 @@
     "rails-typespec-generator": "dist/bin/cli.js"
   },
   "scripts": {
-    "build": "tsc -p tsconfig.json && node ./scripts/copy-assets.js",
+    "build": "node ./scripts/run-build.js",
     "lint": "node ./scripts/check-format.js",
-    "pretest": "npm run build",
-    "test": "node --test",
-    "prepare": "npm run build"
+    "test": "node ./scripts/run-build.js && node --test",
+    "prepare": "node ./scripts/run-build.js"
   },
   "keywords": [
     "rails",
@@ -36,7 +35,7 @@
     "yargs": "^17.7.2"
   },
   "devDependencies": {
-    "@biomejs/cli": "^1.9.3",
+    "@biomejs/biome": "^1.9.3",
     "@types/node": "^20.12.7",
     "lefthook": "^1.6.12",
     "typescript": "^5.4.5"
