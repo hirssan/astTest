@@ -7,6 +7,8 @@ import { fileURLToPath } from 'node:url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const projectRoot = resolve(__dirname, '..');
 const candidateBins = [
+  resolve(projectRoot, 'node_modules', '@biomejs', 'biome', 'bin', 'biome.cjs'),
+  resolve(projectRoot, 'node_modules', '@biomejs', 'biome', 'bin', 'biome.js'),
   resolve(projectRoot, 'node_modules', '@biomejs', 'cli', 'bin', 'biome.cjs'),
   resolve(projectRoot, 'node_modules', '@biomejs', 'cli', 'bin', 'biome.js'),
 ];
@@ -14,7 +16,7 @@ const candidateBins = [
 const biomeBin = candidateBins.find((binPath) => existsSync(binPath));
 
 if (!biomeBin) {
-  console.error('[@biomejs/cli] Binary not found. Did you run `npm install`?');
+  console.error('[@biomejs/biome] Binary not found. Did you run `npm install`?');
   process.exit(1);
 }
 
