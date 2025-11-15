@@ -1,0 +1,7 @@
+pre-commit:
+  parallel: true
+  commands:
+    biome_format:
+      run: bun format
+      pass_filenames: false
+      stage_fixed: true
