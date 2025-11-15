@@ -1,0 +1,27 @@
+{
+  "name": "rails-to-typespec",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Convert Rails schema definitions into TypeSpec models",
+  "scripts": {
+    "build": "tsc -p tsconfig.json && node ./scripts/copy-assets.js",
+    "lint": "echo 'Biome is not configured in this simplified project.'",
+    "test": "npm run build && node --test"
+  },
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "keywords": ["rails", "typespec", "schema", "generator"],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^22.7.7",
+    "typescript": "^5.6.3"
+  }
+}
