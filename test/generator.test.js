@@ -41,16 +41,16 @@ async function withTempProject(callback) {
   }
 }
 
+function assertFallbackWarnings(warnings, message) {
+  const fallbackWarnings = warnings.filter((warning) => /fallback|フォールバック/i.test(warning));
+  assert.equal(fallbackWarnings.length, warnings.length, message);
+}
+
 test('parseRailsSchema returns structured tables, enums, and diagnostics', () => {
   const { tables, enums, diagnostics } = parseRailsSchema(SCHEMA_WITH_ENUM);
 
   assert.equal(diagnostics.errors.length, 0);
-  if (diagnostics.warnings.length > 0) {
-    assert(
-      diagnostics.warnings.some((warning) => /fallback|フォールバック/i.test(warning)),
-      'warnings should describe the fallback when present'
-    );
-  }
+  assertFallbackWarnings(diagnostics.warnings, 'warnings should describe the fallback when present');
 
   assert.equal(tables.length, 2);
   assert.equal(enums.length, 1);
@@ -84,12 +84,7 @@ test('generateTypespecFromRailsSchema emits decorated models and enums', () => {
 
   assert.equal(models.length, 2);
   assert.equal(enums.length, 1);
-  if (diagnostics.warnings.length > 0) {
-    assert(
-      diagnostics.warnings.some((warning) => /fallback|フォールバック/i.test(warning)),
-      'warnings should describe the fallback when present'
-    );
-  }
+  assertFallbackWarnings(diagnostics.warnings, 'warnings should describe the fallback when present');
 
   const usersModel = models.find((model) => model.name === 'Users.tsp');
   assert(usersModel, 'Users.tsp should be generated');
