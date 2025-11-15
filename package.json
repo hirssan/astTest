@@ -1,0 +1,44 @@
+{
+  "name": "rails-typespec-generator",
+  "version": "0.1.0",
+  "description": "Generate TypeSpec models from Rails schema definitions using the Ruby Prism AST.",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": "./dist/index.js",
+  "bin": {
+    "rails-typespec-generator": "dist/bin/cli.js"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json && node ./scripts/copy-assets.js",
+    "lint": "node ./scripts/check-format.js",
+    "pretest": "npm run build",
+    "test": "node --test",
+    "prepare": "npm run build"
+  },
+  "keywords": [
+    "rails",
+    "typespec",
+    "prism",
+    "ast",
+    "codegen"
+  ],
+  "author": "",
+  "license": "MIT",
+  "files": [
+    "dist",
+    "src",
+    "scripts",
+    "README.md"
+  ],
+  "dependencies": {
+    "@ruby/prism": "^0.24.0",
+    "yargs": "^17.7.2"
+  },
+  "devDependencies": {
+    "@biomejs/cli": "^1.9.3",
+    "@types/node": "^20.12.7",
+    "lefthook": "^1.6.12",
+    "typescript": "^5.4.5"
+  }
+}
