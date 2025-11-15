@@ -2,6 +2,6 @@ pre-commit:
   parallel: true
   commands:
     biome_format:
-      run: npm run lint -- --apply
+      run: bun format
       pass_filenames: false
       stage_fixed: true

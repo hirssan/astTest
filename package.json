@@ -11,7 +11,9 @@
   },
   "scripts": {
     "build": "tsc -p tsconfig.json && node ./scripts/copy-assets.js",
-    "lint": "node ./scripts/check-format.js",
+    "lint": "bunx @biomejs/biome lint --write ./src",
+    "format": "bunx @biomejs/biome format --write ./src",
+    "check": "bunx @biomejs/biome check --write ./src",
     "pretest": "npm run build",
     "test": "node --test",
     "prepare": "npm run build"
@@ -36,9 +38,11 @@
     "yargs": "^17.7.2"
   },
   "devDependencies": {
-    "@biomejs/biome": "^1.9.3",
+    "@biomejs/biome": "^2.3.5",
+    "@types/bun": "latest",
     "@types/node": "^20.12.7",
     "lefthook": "^1.6.12",
     "typescript": "^5.4.5"
-  }
+  },
+  "private": true
 }
