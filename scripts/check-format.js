@@ -2,6 +2,7 @@
 import { spawnSync } from 'node:child_process';
 import { existsSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
+import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -11,9 +12,12 @@ const candidateBins = [
   resolve(projectRoot, 'node_modules', '@biomejs', 'biome', 'bin', 'biome.js'),
   resolve(projectRoot, 'node_modules', '@biomejs', 'cli', 'bin', 'biome.cjs'),
   resolve(projectRoot, 'node_modules', '@biomejs', 'cli', 'bin', 'biome.js'),
+  resolve(projectRoot, 'node_modules', '@biomejs', 'cli', 'bin', 'biome.mjs'),
+  resolve(projectRoot, 'node_modules', '@biomejs', 'cli', 'bin', 'biome'),
+  resolve(projectRoot, 'node_modules', '.bin', process.platform === 'win32' ? 'biome.cmd' : 'biome'),
 ];
 
-const biomeBin = candidateBins.find((binPath) => existsSync(binPath));
+const biomeBin = resolvedModuleBin ?? fileCandidates.find((binPath) => existsSync(binPath));
 
 if (!biomeBin) {
   console.error('[@biomejs/biome] Binary not found. Did you run `npm install`?');
@@ -21,7 +25,11 @@ if (!biomeBin) {
 }
 
 const biomeArgs = ['check', '.', ...process.argv.slice(2)];
-const result = spawnSync(process.execPath, [biomeBin, ...biomeArgs], {
+const isNodeScript = /\.(c?m)?js$/.test(biomeBin);
+const spawnCommand = isNodeScript ? process.execPath : biomeBin;
+const spawnArgs = isNodeScript ? [biomeBin, ...biomeArgs] : biomeArgs;
+
+const result = spawnSync(spawnCommand, spawnArgs, {
   stdio: 'inherit',
 });
 
