@@ -36,7 +36,7 @@
     "yargs": "^17.7.2"
   },
   "devDependencies": {
-    "@biomejs/cli": "^1.9.3",
+    "@biomejs/biome": "^1.9.3",
     "@types/node": "^20.12.7",
     "lefthook": "^1.6.12",
     "typescript": "^5.4.5"
